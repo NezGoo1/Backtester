@@ -5,19 +5,40 @@ A Python template for testing a trading strategy. You write your rules in **one 
 ## Quick start
 
 ```bash
-pip install -r requirements.txt          # pandas + numpy (matplotlib/yfinance optional)
+pip install -r requirements.txt
 python run_backtest.py                   # runs my_strategy.py on synthetic sample data
 ```
 
 Then point it at real prices:
 
 ```bash
-python run_backtest.py --csv data/AAPL.csv                 # your own OHLCV file
-python run_backtest.py --yf SPY --start 2015-01-01         # download (pip install yfinance)
+python run_backtest.py --csv data/sample.csv               # an OHLCV file (this one is synthetic)
+python run_backtest.py --yf SPY --start 2015-01-01         # download from Yahoo Finance
 python run_backtest.py --yf BTC-USD --interval 1h --start 2025-06-01 --fractional
 ```
 
-CSV needs `Date, Open, High, Low, Close` (`Volume` optional). Common variants (`timestamp`, `Adj Close`, lowercase, …) are recognised.
+CSV needs `Date, Open, High, Low, Close` (`Volume` optional). Common variants (`timestamp`, `Adj Close`, lowercase, …) are recognised. Drop your own files in `data/`.
+
+## Editing in VS Code
+
+The repo includes VS Code settings, so it is ready to use once Python is installed.
+
+1. Install [Python 3.10+](https://www.python.org/downloads/) (on Windows, tick **Add Python to PATH**) and [VS Code](https://code.visualstudio.com/).
+2. In VS Code: **Ctrl/Cmd+Shift+P → Git: Clone**, paste `https://github.com/NezGoo1/backtester` and open the folder. When asked, install the recommended **Python** extension.
+3. **Ctrl/Cmd+Shift+P → Tasks: Run Task → Setup: create .venv and install requirements**. This is a one-time step. If VS Code asks whether to use the new `.venv` environment, click **Yes**. Otherwise choose it with **Python: Select Interpreter**.
+4. Open `my_strategy.py` and edit your rules.
+5. Press **F5** and pick a run configuration:
+   - **Backtest: sample data**: no download needed
+   - **Backtest: Yahoo ticker**: prompts for a ticker and start date
+   - **Backtest: CSV file**: prompts for a file path
+   - **Backtest: RSI example**: the second example strategy
+   - **Run tests**
+
+   The report appears in the terminal. Charts and CSVs go to `results/`.
+
+To debug your rules, click left of a line number inside `entry()` or `exit()` to set a breakpoint, then press F5. Execution pauses on that bar and you can hover over `bar.close`, `bar.rsi` and other values. Commit and push your changes from the **Source Control** panel (Ctrl/Cmd+Shift+G).
+
+**No install at all:** on the GitHub repo page, choose **Code → Codespaces → Create codespace**. You get the same setup in the browser with everything already installed. Press F5 there too.
 
 ## Plugging in your rules
 

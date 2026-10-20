@@ -1,0 +1,74 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Backtest: sample data",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/run_backtest.py",
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Backtest: Yahoo ticker",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/run_backtest.py",
+      "args": ["--yf", "${input:ticker}", "--start", "${input:start}"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Backtest: CSV file",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/run_backtest.py",
+      "args": ["--csv", "${input:csvPath}"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Backtest: RSI example",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/run_backtest.py",
+      "args": ["--strategy", "examples/rsi_mean_reversion.py", "--yf", "${input:ticker}", "--start", "${input:start}"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    },
+    {
+      "name": "Run tests",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "unittest",
+      "args": ["discover", "-s", "tests", "-v"],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal",
+      "justMyCode": true
+    }
+  ],
+  "inputs": [
+    {
+      "id": "ticker",
+      "type": "promptString",
+      "description": "Yahoo Finance ticker (e.g. SPY, AAPL, BTC-USD, EURUSD=X)",
+      "default": "SPY"
+    },
+    {
+      "id": "start",
+      "type": "promptString",
+      "description": "Start date (YYYY-MM-DD)",
+      "default": "2015-01-01"
+    },
+    {
+      "id": "csvPath",
+      "type": "promptString",
+      "description": "Path to an OHLCV CSV file",
+      "default": "data/sample.csv"
+    }
+  ]
+}
